@@ -16,7 +16,7 @@ def fetch_stock_data(tickers, start_date, end_date):
     return data
 
 #Example tickers and date range
-tickers = ['RY', 'BMO', 'ROY', 'ENB', 'CP', 'CGI']
+tickers = ['RY', 'BMO', 'ROY', 'ENB', 'CP', 'CGI', 'TD', 'CN']
 start_date = '1970-01-01'
 end_date = '2022-12-31'
 
