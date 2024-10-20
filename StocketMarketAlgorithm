@@ -1,0 +1,58 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.preprocessing import LabelEncoder
+
+# Function to fetch historical data
+def fetch_stock_data(tickers, start_date, end_date):
+    data = pd.DataFrame()
+    for ticker in tickers:
+        df = pd.read_csv(f"https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={int(start_date.timestamp())}&period2={int(end_date.timestamp())}&interval=1d&events=history", parse_dates=['Date'])
+        df['Ticker'] = ticker
+        data = data.append(df)
+    data.set_index('Date', inplace=True)
+    return data
+
+#Example tickers and date range
+tickers = ['RY', 'BMO', 'ROY', 'ENB', 'CP', 'CGI']
+start_date = '1970-01-01'
+end_date = '2022-12-31'
+
+data = fetch_stock_data(tickers, start_date, end_date)
+
+features = ['Open', 'High', 'Low', 'Close', 'Volume']
+data['Returns'] = data['Close'].pct_change()
+
+X = data[features]
+y = data['Returns'] > 0
+
+#Encode the labels
+le = LabelEncoder()
+y = le.fit_transform(y)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+#Initialize and train the model
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+print("Classification Report:")
+print(classification_report(y_test, y_pred))
+Predicting and Suggesting Stocks:
+
+#Let's use the model to predict on a new date
+last_date = data.index.max()
+new_data = data.loc[last_date, features].values.reshape(1, -1)
+prediction = model.predict(new_data)
+
+if prediction[0] == 1:
+    print("Based on the model, the stocks are expected to go up today.")
+else:
+    print("Based on the model, the stocks are expected to go down today.")
+
+#TODO: Instead of just printing a sentiment, you can use this to suggest stocks
