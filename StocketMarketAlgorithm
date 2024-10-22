@@ -18,7 +18,7 @@ def fetch_stock_data(tickers, start_date, end_date):
 #Example tickers and date range
 tickers = ['RY', 'BMO', 'ROY', 'ENB', 'CP', 'CGI', 'TD', 'CN']
 start_date = '1970-01-01'
-end_date = '2022-12-31'
+end_date = '2023-12-31'
 
 data = fetch_stock_data(tickers, start_date, end_date)
 
@@ -53,6 +53,8 @@ prediction = model.predict(new_data)
 if prediction[0] == 1:
     print("Based on the model, the stocks are expected to go up today.")
 else:
+
+
     print("Based on the model, the stocks are expected to go down today.")
 
 #TODO: Instead of just printing a sentiment, you can use this to suggest stocks
