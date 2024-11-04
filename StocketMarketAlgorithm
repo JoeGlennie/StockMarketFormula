@@ -45,16 +45,4 @@ print("Classification Report:")
 print(classification_report(y_test, y_pred))
 Predicting and Suggesting Stocks:
 
-#Let's use the model to predict on a new date
-last_date = data.index.max()
-new_data = data.loc[last_date, features].values.reshape(1, -1)
-prediction = model.predict(new_data)
 
-if prediction[0] == 1:
-    print("Based on the model, the stocks are expected to go up today.")
-else:
-
-
-    print("Based on the model, the stocks are expected to go down today.")
-
-#TODO: Instead of just printing a sentiment, you can use this to suggest stocks
