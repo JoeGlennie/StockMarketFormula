@@ -1,3 +1,6 @@
+December 6- The NFL prediction formula did not generate any interest, so I will look into creating a stock market formula. James Simons already created a set of algorithms to get an average annual return of 68%. He may have invented a new branch of mathematics in the early 80s to do it, and I certainly don't have the resources to create something incredibly complex like that. 
+As a starting point for this project, I hypothesize that the only way to get a better return than Renaissance Technologies would be to invest in stocks right after they report earnings and then sell them at the end of every trading day. Usually, there's at least one stock that gains 20% a day, so I will check the TSX's earnings schedule to see if there's any connection.
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
